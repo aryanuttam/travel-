@@ -128,6 +128,9 @@ passport.deserializeUser(user.deserializeUser() );
 app.use(userRouter);
 
 
+app.get("/",(req,res)=>{
+    res.redirect("/listings");
+})
 // Index Route
 app.get("/listings" , wrapAsync(async (req,res) =>{
     const allListings = await Listing.find({});
