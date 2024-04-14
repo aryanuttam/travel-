@@ -48,8 +48,6 @@ async function main(){
     await mongoose.connect(MONGO_URL );
 };
 
-app.set("views", path.join(__dirname, "views"));
-
 app.set("view engine " ,"ejs" );
 app.set("views" ,path.join(__dirname, 'views') );
 app.use(express.urlencoded({extended:true}));
@@ -60,9 +58,9 @@ app.use(express.static(path.join( __dirname,'public')));
 
 
 
-app.get("/" , (req,res) =>{
-    console.log("Hi I am root");
-});
+// app.get("/" , (req,res) =>{
+//     console.log("Hi I am root");
+// });
 
 const validateReview =(req,res,next)=>{
     let {error} = reviewSchema.validate(req.body);
@@ -127,10 +125,7 @@ app.use((req, res, next) => {
 passport.serializeUser(user.serializeUser() );
 passport.deserializeUser(user.deserializeUser() );
 
-app.use("/" , userRouter);
-
-
-
+app.use(userRouter);
 
 
 // Index Route
