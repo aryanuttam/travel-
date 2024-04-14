@@ -29,9 +29,8 @@ const {isLoggedIn} = require("./routes/middlerwares.js");
 
 // const MONGO_URL ="mongodb://127.0.0.1:27017/wonderlust";
 
-const MONGO_URL ="mongodb+srv://aryanuttam786:VntgDTFX8xYkfEq0@travel.di7opxt.mongodb.net/?retryWrites=true&w=majority&appName=travel";
-
-
+// const MONGO_URL ="mongodb+srv://aryanuttam786:VntgDTFX8xYkfEq0@travel.di7opxt.mongodb.net/?retryWrites=true&w=majority&appName=travel";
+const MONGO_URL="mongodb+srv://aryanuttam786:OiXG32VnBBq631j5@cluster0.fa93nwy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 main()
 .then(() => {
     console.log("database is connected");
@@ -105,6 +104,9 @@ app.use(session(sessionOptions));
 app.use(flash());
 
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new loaclStrategy( user.authenticate() ));
 
 
 app.use((req, res, next) => {
@@ -115,14 +117,13 @@ app.use((req, res, next) => {
     // Set local variable for the current authenticated user
     res.locals.currUser = req.user;
 
+    // console.log(req.user)
+
     // Call the next middleware in the chain
     next();
 });
 
 
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new loaclStrategy( user.authenticate() ));
 passport.serializeUser(user.serializeUser() );
 passport.deserializeUser(user.deserializeUser() );
 
